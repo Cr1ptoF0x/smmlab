@@ -1,0 +1,295 @@
+{
+    "banner": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Banner Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "580x685"
+                }
+            },
+            "heading_top": "text",
+            "heading": "text",
+            "sub_heading": "textarea",
+            "button": "text",
+            "button_link": "text"
+        }
+    },
+    "about": {
+        "builder": true,
+        "name": "About Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "640x770"
+                }
+            },
+            "title_top": "text",
+            "title": "text",
+            "description": "textarea",
+            "button": "text",
+            "button_link": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "45x45"
+                }
+            },
+            "count": "text",
+            "title": "text",
+            "modal": true
+        }
+    },
+    "client": {
+        "builder": true,
+        "name": "Client Section",
+        "content": {
+            "heading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "140x30"
+                }
+            },
+            "modal": true
+        }
+    },
+    "action": {
+        "builder": true,
+        "name": "Action Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "325x310"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "textarea",
+            "button": "text",
+            "button_url": "text"
+        }
+    },
+    "service": {
+        "builder": true,
+        "name": "Service Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "text"
+        },
+        "element": {
+            "images": {
+                "social_image": {
+                    "size": "60x60"
+                }
+            },
+            "title": "text",
+            "content": "textarea",
+            "modal": true
+        }
+    },
+    "process": {
+        "builder": true,
+        "name": "Process Section",
+        "content": {
+            "title": "text",
+            "heading": "text",
+            "heading_two": "text",
+            "sub_heading": "textarea",
+            "button": "text",
+            "button_link": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "60x60"
+                }
+            },
+            "title": "text",
+            "content": "textarea",
+            "button": "text",
+            "button_link": "text",
+            "modal": true
+        }
+    },
+    "testimonial": {
+        "builder": true,
+        "name": "Testimonial Section",
+        "content": {
+            "heading_top": "text",
+            "heading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "75x75"
+                }
+            },
+            "name": "text",
+            "designation": "text",
+            "review": "textarea",
+            "select": {
+                "name": "rating",
+                "options": {
+                    "5": "5 Star",
+                    "4": "4 Star",
+                    "3": "3 Star",
+                    "2": "2 Star",
+                    "1": "1 Star"
+                }
+            },
+            "modal": true
+        }
+    },
+    "blog": {
+        "builder": true,
+        "name": "Blog Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "text",
+            "description": "textarea",
+            "button_text": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "830x620",
+                    "thumb": "415x310"
+                }
+            },
+            "title": "text",
+            "slug": "title",
+            "short_description": "text",
+            "description": "textarea-nic",
+            "modal": false,
+            "seo": true
+        }
+    },
+    "footer": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Footer Section",
+        "content": {
+            "subscribe_title": "text",
+            "subscribe_button": "text",
+            "social_heading": "text"
+        },
+        "element": {
+            "images": {
+                "social_image": {
+                    "size": "24x24"
+                }
+            },
+            "social_name": "text",
+            "social_url": "text",
+            "modal": true
+        }
+    },
+    "policy_pages": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Policy Pages",
+        "element": {
+            "title": "text",
+            "slug": "title",
+            "content": "textarea-nic",
+            "modal": false,
+            "seo": true
+        }
+    },
+    "register": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Register Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "960x870"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text"
+        }
+    },
+    "login": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Login Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "910x870"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text"
+        }
+    },
+    "contact": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Contact Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "555x580"
+                }
+            },
+            "title": "text",
+            "heading": "text"
+        },
+        "element": {
+            "images": {
+                "icon_photo": {
+                    "size": "40x40"
+                }
+            },
+            "title": "text",
+            "sub_title": "textarea",
+            "content": "text",
+            "select": {
+                "name": "contact_type",
+                "options": {
+                    "none": "None",
+                    "location": "Location",
+                    "mailto": "Mail",
+                    "tel": "Mobile"
+                }
+            },
+            "modal": true
+        }
+    },
+    "faq": {
+        "builder": true,
+        "name": "FAQ Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "230x190"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text"
+        },
+        "element": {
+            "question": "text",
+            "answer": "textarea",
+            "modal": true
+        }
+    },
+    "banned": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Banned Page",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "360x370"
+                }
+            },
+            "heading": "text"
+        }
+    }
+}
