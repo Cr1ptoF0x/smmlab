@@ -1,0 +1,5 @@
+.git
+.github
+Files/core/vendor/
+Files/core/.env
+Files/core/storage/*.key
