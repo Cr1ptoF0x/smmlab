@@ -1,0 +1,30 @@
+# Root .gitignore for SMMLab
+
+# Environment and sensitive keys
+.env
+.env.backup
+.env.production
+*.key
+
+# Compiled & Cache storage
+Files/core/storage/framework/sessions/*
+!Files/core/storage/framework/sessions/.gitignore
+Files/core/storage/framework/views/*
+!Files/core/storage/framework/views/.gitignore
+Files/core/storage/framework/cache/*
+!Files/core/storage/framework/cache/.gitignore
+Files/core/storage/logs/*.log
+Files/core/bootstrap/cache/*.php
+
+# Dependencies
+Files/core/vendor/
+node_modules/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Build artifacts & heavy archives
+smmlab-production.zip
