@@ -1,38 +1,27 @@
 FROM php:8.3-apache
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    libzip-dev
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public \
+    COMPOSER_ALLOW_SUPERUSER=1
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip libzip-dev \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && a2enmod rewrite headers \
+    && sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf \
+    && printf '<Directory /var/www/html/public>\\nAllowOverride All\\nRequire all granted\\n</Directory>\\n' > /etc/apache2/conf-available/smmlab.conf \
+    && a2enconf smmlab \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
-
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Set working directory
 WORKDIR /var/www/html
-
-# Copy the application files
 COPY Files/ /var/www/html/
 
-# Install composer dependencies
-RUN cd core && composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN cd /var/www/html/core \
+    && composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader \
+    && mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/core/storage /var/www/html/core/bootstrap/cache \
+    && chmod -R 775 /var/www/html/core/storage /var/www/html/core/bootstrap/cache
 
-# Ensure necessary permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/core/storage \
-    && chmod -R 775 /var/www/html/core/bootstrap/cache
+EXPOSE 80
