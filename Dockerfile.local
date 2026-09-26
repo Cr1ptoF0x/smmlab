@@ -1,54 +1,25 @@
 FROM php:8.3-apache
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    libzip-dev \
-    default-mysql-client \
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public \
+    COMPOSER_ALLOW_SUPERUSER=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git curl libpng-dev libjpeg62-turbo-dev libfreetype6-dev libonig-dev \
+    libxml2-dev zip unzip libzip-dev default-mysql-client \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && a2enmod rewrite headers \
+    && sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf \
+    && printf '<Directory /var/www/html/public>\\nAllowOverride All\\nRequire all granted\\n</Directory>\\n' > /etc/apache2/conf-available/smmlab.conf \
+    && a2enconf smmlab \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Configure and install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
-    pdo_mysql \
-    mbstring \
-    exif \
-    pcntl \
-    bcmath \
-    gd \
-    zip
-
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
-
-# Configure Apache to allow .htaccess overrides
-RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-
-# Set PHP configurations for development
-RUN echo "upload_max_filesize = 100M" > /usr/local/etc/php/conf.d/custom.ini \
-    && echo "post_max_size = 100M" >> /usr/local/etc/php/conf.d/custom.ini \
-    && echo "max_execution_time = 300" >> /usr/local/etc/php/conf.d/custom.ini \
-    && echo "memory_limit = 256M" >> /usr/local/etc/php/conf.d/custom.ini \
-    && echo "display_errors = On" >> /usr/local/etc/php/conf.d/custom.ini \
-    && echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/custom.ini \
-    && echo "allow_url_fopen = On" >> /usr/local/etc/php/conf.d/custom.ini
-
-# Set working directory
-WORKDIR /var/www/html
-
-# Set permissions (will apply to the mounted volume at runtime via entrypoint)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+WORKDIR /var/www/html
 EXPOSE 80
-
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
