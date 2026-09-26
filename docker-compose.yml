@@ -11,6 +11,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html/public
     networks:
@@ -22,6 +24,8 @@ services:
     container_name: smmlab-db
     ports:
       - "3307:3306"
+    env_file:
+      - .env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Define MYSQL_ROOT_PASSWORD en .env}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-smmlab}
@@ -45,6 +49,8 @@ services:
     container_name: smmlab-phpmyadmin
     ports:
       - "8080:80"
+    env_file:
+      - .env
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
